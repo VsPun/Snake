@@ -18,11 +18,11 @@ def rysuj(punkty):
                 pygame.draw.rect(s , pygame.Color(173,216,230) , (i*30 ,j*30 ,30 ,30) ,0)
                 
                 
-    for i in range(len(pyton.pozX)):
+    for i in range(len(python.pozX)):
         if i==0 :
-            s.blit(glowa_img, (2+pyton.pozX[i]*30, 2+pyton.pozY[i]*30));
+            s.blit(glowa_img, (2+python.pozX[i]*30, 2+python.pozY[i]*30));
         else:
-           s.blit(ogon_img, (2+pyton.pozX[i]*30, 2+pyton.pozY[i]*30));
+           s.blit(ogon_img, (2+python.pozX[i]*30, 2+python.pozY[i]*30));
            
     for i in zarcie:
         if i.zjedzony:
@@ -44,15 +44,15 @@ def kolizja(x ,y, punkty):
     if x>19 or x<0 or y>19 or y<0 :
         smierc(punkty)
         
-    for i in range(1,len(pyton.pozX)-1):
-        if pyton.pozX[0]== pyton.pozX[i] and pyton.pozY[0]== pyton.pozY[i]:
+    for i in range(1,len(python.pozX)-1):
+        if python.pozX[0]== python.pozX[i] and python.pozY[0]== python.pozY[i]:
             smierc(punkty)
         
 def dodaj_jedzenie():
     tempx = random.randint(0 ,19)
     tempy =random.randint(0,19)
-    for i in range(len(pyton.pozX)):
-        if pyton.pozX[i]== tempx and pyton.pozY[i]== tempy:
+    for i in range(len(python.pozX)):
+        if python.pozX[i]== tempx and python.pozY[i]== tempy:
             dodaj_jedzenie()
             return
     tempjedzenie = jedzenie(tempx, tempy)
@@ -62,7 +62,7 @@ def smierc(punkty):
     #myfont = pygame.font.SysFont('Comic Sans MS', 30)
     myfont = pygame.font.Font(pygame.font.get_default_font(), 24)
   #  clock2 =pygame.time.Clock()
-    #pyton.zyje=False
+    #python.zyje=False
     text = myfont.render('Zdobyte punkty: '+str(punkty), False, (0, 0, 0))
     text2 = myfont.render(' Wcisnij "R" aby zaczac od nowa' , False , (0,0,0))
     s.blit(text,(200,240))
@@ -101,56 +101,56 @@ clock = pygame.time.Clock()
 fontscore = pygame.font.Font(pygame.font.get_default_font(), 16)
 
 zarcie =[]
-pyton= waz()
+python= waz()
 
 def main():
     punkty =0
     dodaj_jedzenie()
-    pyton.pozX=[10 ,9 ,8]
-    pyton.pozY=[10 ,10 ,10]
-    pyton.kierunek=2
-    pyton.predkosc=3
+    python.pozX=[10 ,9 ,8]
+    python.pozY=[10 ,10 ,10]
+    python.kierunek=2
+    python.predkosc=3
     #s.blit(appleimage, 20 , 20);
-    while pyton.zyje:
-        clock.tick(pyton.predkosc)
+    while python.zyje:
+        clock.tick(python.predkosc)
         #rysuj()
         for e in pygame.event.get():
            # e.type == pygame.QUIT:
     		    # sys.exit(0)
     	    if e.type == pygame.KEYDOWN:
-    		    	if e.key == pygame.K_UP and pyton.kierunek != 1:pyton.kierunek = 3
-    		    	elif e.key == pygame.K_DOWN and pyton.kierunek != 3:pyton.kierunek = 1
-    		    	elif e.key == pygame.K_LEFT and pyton.kierunek != 2:pyton.kierunek = 0
-    		    	elif e.key == pygame.K_RIGHT and pyton.kierunek != 0:pyton.kierunek = 2
+    		    	if e.key == pygame.K_UP and python.kierunek != 1:python.kierunek = 3
+    		    	elif e.key == pygame.K_DOWN and python.kierunek != 3:python.kierunek = 1
+    		    	elif e.key == pygame.K_LEFT and python.kierunek != 2:python.kierunek = 0
+    		    	elif e.key == pygame.K_RIGHT and python.kierunek != 0:python.kierunek = 2
                 
                 
-        for i in range(len(pyton.pozX)-1 ,0 ,-1):
+        for i in range(len(python.pozX)-1 ,0 ,-1):
             if i==0 :
                 break
-            pyton.pozX[i]=pyton.pozX[i-1]
-            pyton.pozY[i]=pyton.pozY[i-1]
+            python.pozX[i]=python.pozX[i-1]
+            python.pozY[i]=python.pozY[i-1]
             
             
-        if pyton.kierunek==0:
-            pyton.pozX[0]-=1
-        elif pyton.kierunek ==1:
-            pyton.pozY[0]+=1
-        elif pyton.kierunek ==2:
-            pyton.pozX[0]+=1
-        elif pyton.kierunek ==3:
-            pyton.pozY[0]-=1
+        if python.kierunek==0:
+            python.pozX[0]-=1
+        elif python.kierunek ==1:
+            python.pozY[0]+=1
+        elif python.kierunek ==2:
+            python.pozX[0]+=1
+        elif python.kierunek ==3:
+            python.pozY[0]-=1
             
-        kolizja(pyton.pozX[0] , pyton.pozY[0] , punkty)
+        kolizja(python.pozX[0] , python.pozY[0] , punkty)
         
-        if zarcie[0].pozX==pyton.pozX[0] and zarcie[0].pozY ==pyton.pozY[0]:
+        if zarcie[0].pozX==python.pozX[0] and zarcie[0].pozY ==python.pozY[0]:
             zarcie[0].zjedzony =True
             punkty+=1
-            if pyton.predkosc<10:
-                pyton.predkosc+=0.5
+            if python.predkosc<10:
+                python.predkosc+=0.5
             dodaj_jedzenie()
-        if zarcie[-1].pozX==pyton.pozX[-1] and zarcie[-1].pozY ==pyton.pozY[-1]:
-            pyton.pozX.insert(-1 ,zarcie[-1].pozX)
-            pyton.pozY.insert(-1 ,zarcie[-1].pozY)
+        if zarcie[-1].pozX==python.pozX[-1] and zarcie[-1].pozY ==python.pozY[-1]:
+            python.pozX.insert(-1 ,zarcie[-1].pozX)
+            python.pozY.insert(-1 ,zarcie[-1].pozY)
             zarcie.remove(zarcie[-1])
             #s.fill((255, 255, 255))	
 
